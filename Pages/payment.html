@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment | Frnds Travels</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                              url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .payment-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .payment-header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .payment-body {
+            padding: 30px;
+        }
+        
+        .payment-method {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method:hover {
+            border-color: #2a5298;
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.1);
+        }
+        
+        .payment-method.selected {
+            border: 2px solid #2a5298;
+            background-color: #f0f5ff;
+        }
+        
+        .payment-icon {
+            font-size: 30px;
+            margin-right: 15px;
+            color: #2a5298;
+        }
+        
+        .btn-pay {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .btn-pay:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(42, 82, 152, 0.2);
+        }
+        
+        .form-control:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 0 0.25rem rgba(42, 82, 152, 0.25);
+        }
+        
+        /* Success Modal */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            animation: modalFadeIn 0.5s;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .checkmark {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .trip-details {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card-details {
+            display: none;
+        }
+        
+        .upi-details {
+            display: none;
+        }
+        
+        .wallet-details {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h2><i class="fas fa-lock"></i> Secure Payment</h2>
+            <p>Complete your booking with a secure payment</p>
+        </div>
+        
+        <div class="payment-body">
+            <div class="trip-details">
+                <h4>Your Trip to <span id="destination"></span></h4>
+                <p>Date: <span id="trip-date"></span></p>
+                <p>Travelers: <span id="travelers"></span></p>
+                <h5 class="mt-3">Total: <span class="text-primary" id="trip-price"></span></h5>
+                <input type="hidden" id="tourId" value="" />
+            </div>
+            
+            <h4 class="mb-4">Select Payment Method</h4>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="payment-method" onclick="selectPaymentMethod('card')">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-credit-card payment-icon"></i>
+                            <div>
+                                <h5>Credit/Debit Card</h5>
+                                <p class="text-muted">Visa, Mastercard, Rupay</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="payment-method" onclick="selectPaymentMethod('upi')">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-mobile-alt payment-icon"></i>
+                            <div>
+                                <h5>UPI Payment</h5>
+                                <p class="text-muted">Google Pay, PhonePe, etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="payment-method" onclick="selectPaymentMethod('wallet')">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-wallet payment-icon"></i>
+                            <div>
+                                <h5>Wallet</h5>
+                                <p class="text-muted">Paytm, Amazon Pay</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="payment-method" onclick="selectPaymentMethod('paypal')">
+                        <div class="d-flex align-items-center">
+                            <i class="fab fa-paypal payment-icon"></i>
+                            <div>
+                                <h5>PayPal</h5>
+                                <p class="text-muted">International payments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card Payment Form -->
+            <div class="card-details" id="cardForm">
+                <h5 class="mt-4 mb-3">Card Details</h5>
+                <div class="mb-3">
+                    <label for="cardNumber" class="form-label">Card Number</label>
+                    <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="expiryDate" class="form-label">Expiry Date</label>
+                        <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="cvv" class="form-label">CVV</label>
+                        <input type="text" class="form-control" id="cvv" placeholder="123">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="cardName" class="form-label">Name on Card</label>
+                    <input type="text" class="form-control" id="cardName" placeholder="John Doe">
+                </div>
+            </div>
+            
+            <!-- UPI Payment Form -->
+            <div class="upi-details" id="upiForm">
+                <h5 class="mt-4 mb-3">UPI Payment</h5>
+                <div class="mb-3">
+                    <label for="upiId" class="form-label">UPI ID</label>
+                    <input type="text" class="form-control" id="upiId" placeholder="yourname@upi">
+                </div>
+                <p class="text-muted">You'll be redirected to your UPI app to complete the payment</p>
+            </div>
+            
+            <!-- Wallet Payment Form -->
+            <div class="wallet-details" id="walletForm">
+                <h5 class="mt-4 mb-3">Wallet Payment</h5>
+                <div class="mb-3">
+                    <label for="walletType" class="form-label">Select Wallet</label>
+                    <select class="form-select" id="walletType">
+                        <option selected>Choose wallet</option>
+                        <option value="paytm">Paytm</option>
+                        <option value="amazon">Amazon Pay</option>
+                        <option value="mobikwik">MobiKwik</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="mobileNumber" class="form-label">Mobile Number</label>
+                    <input type="text" class="form-control" id="mobileNumber" placeholder="9876543210">
+                </div>
+            </div>
+            
+            <!-- PayPal will handle its own form -->
+            <div class="paypal-details" id="paypalForm" style="display: none;">
+                <h5 class="mt-4 mb-3">PayPal Payment</h5>
+                <p class="text-muted">You'll be redirected to PayPal to complete your payment</p>
+            </div>
+            
+            <button class="btn btn-pay" onclick="processPayment()">
+                <i class="fas fa-lock"></i> Pay 
+            </button>
+            
+            <div class="mt-3 text-center">
+                <p class="text-muted"><i class="fas fa-shield-alt"></i> Your payment is secured with 256-bit SSL encryption</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="modal-content">
+            <div class="checkmark">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Payment Successful!</h3>
+            <p>Your booking for <strong id="bookingDestination">...</strong> has been confirmed.</p>
+            <p>Booking ID: <strong id="bookingId">...</strong></p>
+            <p>We've sent the details to your email.</p>
+            <button class="btn btn-primary mt-3" onclick="closeModal()">
+                Continue to Booking Details
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        let selectedMethod = '';
+
+        function selectPaymentMethod(method, event) {
+            selectedMethod = method;
+
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+
+            if (event?.currentTarget) {
+                event.currentTarget.classList.add('selected');
+            }
+
+            // Hide all forms
+            document.getElementById('cardForm').style.display = 'none';
+            document.getElementById('upiForm').style.display = 'none';
+            document.getElementById('walletForm').style.display = 'none';
+            document.getElementById('paypalForm').style.display = 'none';
+
+            // Show selected form
+            const form = document.getElementById(`${method}Form`);
+            if (form) form.style.display = 'block';
+        }
+
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            selectPaymentMethod('card'); // Default method
+            const bookingInfo = JSON.parse(localStorage.getItem('bookingInfo'));
+            let tourId, travelers, travelDate, city = 'Unknown', priceFromParams = '0';
+
+            if (bookingInfo) {
+                tourId = bookingInfo.tourId;
+                travelers = bookingInfo.travelers;
+                travelDate = bookingInfo.travelDate;
+                selectedMethod = bookingInfo.selectedMethod || 'card';
+                localStorage.removeItem('bookingInfo');
+            } else {
+                // Fallback to URL params
+                const urlParams = new URLSearchParams(window.location.search);
+                console.log('🛫 Fetching tour with ID from URL:', urlParams.get('id'));
+                tourId = urlParams.get('id');
+                travelers = urlParams.get('travelers') || '0';
+                travelDate = urlParams.get('date') || new Date().toISOString().split('T')[0];
+                priceFromParams = urlParams.get('price') || '0';
+                city = urlParams.get('city') || 'Unknown';
+            }
+
+            if (!tourId) {
+                alert('No tour selected');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Initial UI update from URL
+            document.getElementById('destination').textContent = city;
+            const destinationEl = document.getElementById('bookingDestination');
+            if (destinationEl) {
+                destinationEl.textContent = city;
+            }
+            document.getElementById('tourId').value = tourId;
+            document.getElementById('trip-date').textContent = travelDate;
+            document.getElementById('travelers').textContent = `${travelers} ${travelers > 1 ? 'Adults' : 'Adult'}`;
+            document.getElementById('destination').textContent = city;
+            document.getElementById('trip-price').textContent = `₹${priceFromParams}`;
+
+
+            // Try to fetch full tour data
+            
+            try {
+                const token = localStorage.getItem('token'); // or sessionStorage
+                if (!token) {
+                    alert('You are not logged in. Please login first.');
+                    window.location.href = 'login.html';
+                    return;
+                    }
+
+                const response = await fetch(`/api/tours/${tourId}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': token
+                    }
+                });
+                const rawText = await response.text();
+
+                let tour;
+                try {
+                    tour = JSON.parse(rawText);
+                } catch (err) {
+                    throw new Error('Invalid JSON response. Raw: ' + rawText);
+                }
+
+                if (!response.ok) throw new Error(tour.msg || 'Failed to load tour');
+
+                // Update UI from backend
+                document.getElementById('destination').textContent = tour.name;
+                if (destinationEl) {
+                    destinationEl.textContent = tour.name;
+                }
+                document.getElementById('trip-price').textContent = `₹${tour.basePrice}`;
+                document.querySelector('.btn-pay').innerHTML = `<i class="fas fa-lock"></i> Pay ₹${tour.basePrice}`;
+                if (document.getElementById('trip-description')) {
+                    document.getElementById('trip-description').textContent = tour.description;
+                }
+                if (document.querySelector('.trip-image')) {
+                    document.querySelector('.trip-image').src = tour.imageUrl;
+                }
+            } catch (error) {
+                console.error('❌ Error loading tour data:', error);
+                alert('Could not load tour data. Showing fallback info.');
+            }
+            
+        });
+
+        async function processPayment() {
+            if (!selectedMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+
+            const tourId = document.getElementById('tourId').value;
+            const travelers = document.getElementById('travelers').textContent.split(' ')[0];
+            const travelDate = document.getElementById('trip-date').textContent;
+            const tripPrice = document.getElementById('trip-price').textContent.replace('₹', '');
+
+            const token = localStorage.getItem('token');
+            console.log('🔐 Sending token:', token); 
+            if (!token) {
+                 localStorage.setItem('bookingInfo', JSON.stringify({
+                    tourId,
+                    travelers,
+                    travelDate,
+                    selectedMethod}));
+                alert('Please login to complete booking');
+                window.location.href = `login.html?redirect=${encodeURIComponent(window.location.href)}`;
+                return;
+            }
+
+            const payBtn = document.querySelector('.btn-pay');
+            payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            payBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+
+                    },
+                    body: JSON.stringify({
+                        tourId,
+                        travelers,
+                        travelDate,
+                        paymentMethod: selectedMethod
+                    })
+                });
+
+                const raw = await response.text();
+                let booking;
+
+                try {
+                    booking = JSON.parse(raw);
+                } catch (e) {
+                    throw new Error('Invalid response from server: ' + raw);
+                }
+
+                if (!response.ok) throw new Error(booking.msg || 'Payment failed');
+
+                // Show success modal
+                document.getElementById('bookingId').textContent = booking._id;
+                document.getElementById('bookingDestination').textContent = 
+                    document.getElementById('destination').textContent;
+                document.getElementById('successModal').style.display = 'flex';
+
+            } catch (error) 
+            {
+                console.error('❌ Payment error:', error);
+                    // Check if error message is token invalid or expired
+                if (error.message === 'Token is not valid' || error.message === 'jwt expired') {
+                    // Clear the invalid token
+                    localStorage.removeItem('token');
+
+                    alert('Session expired. Please login again.');
+
+                    // Redirect to login page with current page as redirect url
+                    window.location.href = `login.html?redirect=${encodeURIComponent(window.location.href)}`;
+                    return;
+                }
+                alert(error.message || 'Payment failed. Please try again.');
+            } finally {
+                payBtn.innerHTML = `<i class="fas fa-lock"></i> Pay ₹${tripPrice}`;
+                payBtn.disabled = false;
+            }
+        }
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            window.location.href = 'index.html';
+        }
+        // ✅ This ensures fallback to URL even if localStorage isn't used
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            const tourId = urlParams.get('id');        // e.g., GOA2025
+            const city = urlParams.get('city');        // e.g., Goa
+            const travelDate = urlParams.get('date');  // e.g., 2025-06-01
+            const travelers = urlParams.get('travelers') || '1';
+            const price = urlParams.get('price');      // e.g., 15999
+
+            if (!tourId || !city || !price) {
+                alert('Missing booking information. Please start again.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Fill hidden and visible elements
+            document.getElementById('tourId').value = tourId;
+            document.getElementById('destination').textContent = city;
+            document.getElementById('trip-date').textContent = travelDate;
+            document.getElementById('travelers').textContent = `${travelers} travelers`;
+            document.getElementById('trip-price').textContent = `₹${price}`;
+        });
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
