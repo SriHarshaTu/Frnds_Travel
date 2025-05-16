@@ -1,0 +1,22 @@
+[
+  {
+    "id": "BUS001",
+    "from": "Mumbai",
+    "to": "Pune",
+    "date": "2025-05-16",
+    "departureTime": "08:00",
+    "arrivalTime": "12:00",
+    "busType": "AC Sleeper",
+    "price": 700
+  },
+  {
+    "id": "BUS002",
+    "from": "Pune",
+    "to": "Mumbai",
+    "date": "2025-05-16",
+    "departureTime": "14:00",
+    "arrivalTime": "18:00",
+    "busType": "Non-AC Seater",
+    "price": 500
+  }
+]

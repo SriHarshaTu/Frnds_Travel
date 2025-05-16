@@ -1,0 +1,22 @@
+[
+  {
+    "id": "TRAIN001",
+    "from": "Delhi",
+    "to": "Agra",
+    "date": "2025-05-16",
+    "departureTime": "07:00",
+    "arrivalTime": "10:00",
+    "class": "Sleeper",
+    "price": 300
+  },
+  {
+    "id": "TRAIN002",
+    "from": "Agra",
+    "to": "Delhi",
+    "date": "2025-05-16",
+    "departureTime": "16:00",
+    "arrivalTime": "19:00",
+    "class": "AC 3 Tier",
+    "price": 600
+  }
+]

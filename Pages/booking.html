@@ -162,34 +162,34 @@
             <!-- Flight Booking Form -->
             <div class="booking-form-container" id="flightForm">
                 <h3 class="form-title"><i class="fas fa-plane me-2"></i>Flight Booking</h3>
-                <form>
+                <form id="flightSearchForm">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>From</label>
-                                <input type="text" class="form-control" placeholder="Departure City">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>To</label>
-                                <input type="text" class="form-control" placeholder="Arrival City">
-                            </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                        <label>From</label>
+                        <input type="text" id="fromInput" class="form-control" placeholder="Departure City" required>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                        <label>To</label>
+                        <input type="text" id="toInput" class="form-control" placeholder="Arrival City" required>
+                        </div>
+                    </div>
+                    </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Departure Date</label>
-                                <input type="date" class="form-control">
-                            </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                        <label>Departure Date</label>
+                        <input type="date" id="dateInput" class="form-control" required>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Return Date (Optional)</label>
-                                <input type="date" class="form-control">
-                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                        <label>Return Date (Optional)</label>
+                        <input type="date" id="returnDateInput" class="form-control">
                         </div>
+                    </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -217,27 +217,29 @@
                     </div>
                     <button type="submit" class="btn btn-booking mt-3">Search Flights</button>
                 </form>
+                <div id="flightResults" class="mt-4 text-white"></div>
+
             </div>
             
             <!-- Hotel Booking Form -->
             <div class="booking-form-container hidden" id="hotelForm">
                 <h3 class="form-title"><i class="fas fa-hotel me-2"></i>Hotel Booking</h3>
-                <form>
+                <form id="hotelSearchForm">
                     <div class="form-group">
                         <label>Destination</label>
-                        <input type="text" class="form-control" placeholder="City or Hotel Name">
+                        <input type="text" id="hotelCityInput" class="form-control" placeholder="City or hotel name" required>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Check-in Date</label>
-                                <input type="date" class="form-control">
+                                <input type="date" id="hotelCheckinInput" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Check-out Date</label>
-                                <input type="date" class="form-control">
+                                <input type="date" class="form-control" id="hotelCheckoutInput" required>
                             </div>
                         </div>
                     </div>
@@ -267,23 +269,24 @@
                     </div>
                     <button type="submit" class="btn btn-booking mt-3">Search Hotels</button>
                 </form>
+                <div id="hotelResults" class="mt-4 text-white"></div>
             </div>
             
             <!-- Train Booking Form -->
             <div class="booking-form-container hidden" id="trainForm">
                 <h3 class="form-title"><i class="fas fa-train me-2"></i>Train Booking</h3>
-                <form>
+                <form id="trainSearchForm">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>From Station</label>
-                                <input type="text" class="form-control" placeholder="Source Station">
+                                <input type="text" class="form-control" id="trainFromInput" placeholder="Source Station" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>To Station</label>
-                                <input type="text" class="form-control" placeholder="Destination Station">
+                                <input type="text" id="trainToInput" class="form-control" placeholder="Destination Station" required>
                             </div>
                         </div>
                     </div>
@@ -291,7 +294,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Date of Journey</label>
-                                <input type="date" class="form-control">
+                                <input type="date" id="trainDateInput" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -318,23 +321,24 @@
                     </div>
                     <button type="submit" class="btn btn-booking mt-3">Search Trains</button>
                 </form>
+                <div id="trainResults" class="mt-4 text-white"></div>
             </div>
             
             <!-- Bus Booking Form -->
             <div class="booking-form-container hidden" id="busForm">
                 <h3 class="form-title"><i class="fas fa-bus me-2"></i>Bus Booking</h3>
-                <form>
+                <form id="busSearchForm">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>From</label>
-                                <input type="text" class="form-control" placeholder="Source City">
+                                <input type="text" class="form-control" id="busFromInput" placeholder="Source City" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>To</label>
-                                <input type="text" class="form-control" placeholder="Destination City">
+                                <input type="text" class="form-control" id="busToInput" placeholder="Destination City" required>
                             </div>
                         </div>
                     </div>
@@ -342,7 +346,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Travel Date</label>
-                                <input type="date" class="form-control">
+                                <input type="date" id="busDateInput" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -370,6 +374,7 @@
                     </div>
                     <button type="submit" class="btn btn-booking mt-3">Search Buses</button>
                 </form>
+                <div id="busResults" class="mt-4 text-white"></div>
             </div>
         </div>
     </section>
@@ -402,6 +407,181 @@
             document.querySelector('.booking-option').classList.add('active');
         });
     </script>
+    <script>
+        document.getElementById('flightSearchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const from = document.getElementById('fromInput').value.trim();
+            const to = document.getElementById('toInput').value.trim();
+            const date = document.getElementById('dateInput').value;
+
+            if (!from || !to || !date) {
+                alert('Please fill in From, To and Departure Date');
+                return;
+            }
+
+            const flightResultsDiv = document.getElementById('flightResults');
+            flightResultsDiv.innerHTML = 'Loading flights...';
+
+            try {
+                const response = await fetch(`/api/flights?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`);
+                if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.msg || 'Failed to fetch flights');
+                }
+
+                const flights = await response.json();
+
+                if (flights.length === 0) {
+                flightResultsDiv.innerHTML = '<p>No flights found.</p>';
+                return;
+                }
+
+                // Build flight results HTML
+                let html = '<h4>Available Flights:</h4><ul class="list-group">';
+                flights.forEach(flight => {
+                html += `<li class="list-group-item">
+                    <strong>${flight.airline}</strong> from <em>${flight.from}</em> to <em>${flight.to}</em> on <strong>${flight.date}</strong><br>
+                    Departure: ${flight.departureTime}, Arrival: ${flight.arrivalTime}<br>
+                    Price: ₹${flight.price}
+                </li>`;
+                });
+                html += '</ul>';
+
+                flightResultsDiv.innerHTML = html;
+
+            } catch (error) {
+                flightResultsDiv.innerHTML = `<p class="text-danger">Error loading flights: ${error.message}</p>`;
+            }
+        });
+        // Bus Search
+        document.getElementById('busSearchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const from = document.getElementById('busFromInput').value.trim();
+            const to = document.getElementById('busToInput').value.trim();
+            const date = document.getElementById('busDateInput').value;
+
+            const resultsDiv = document.getElementById('busResults');
+            resultsDiv.innerHTML = 'Loading buses...';
+
+            try {
+                const response = await fetch(`/api/buses?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`);
+                if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.msg || 'Failed to fetch buses');
+                }
+                const buses = await response.json();
+
+                if (buses.length === 0) {
+                resultsDiv.innerHTML = '<p>No buses found.</p>';
+                return;
+                }
+
+                let html = '<h4>Available Buses:</h4><ul class="list-group">';
+                buses.forEach(bus => {
+                html += `<li class="list-group-item">
+                    <strong>${bus.busType}</strong> bus from <em>${bus.from}</em> to <em>${bus.to}</em> on <strong>${bus.date}</strong><br>
+                    Departure: ${bus.departureTime}, Arrival: ${bus.arrivalTime}<br>
+                    Price: ₹${bus.price}
+                </li>`;
+                });
+                html += '</ul>';
+
+                resultsDiv.innerHTML = html;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<p class="text-danger">Error loading buses: ${error.message}</p>`;
+            }
+        });
+
+        // Train Search
+        document.getElementById('trainSearchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const from = document.getElementById('trainFromInput').value.trim();
+            const to = document.getElementById('trainToInput').value.trim();
+            const date = document.getElementById('trainDateInput').value;
+
+            const resultsDiv = document.getElementById('trainResults');
+            resultsDiv.innerHTML = 'Loading trains...';
+
+            try {
+                const response = await fetch(`/api/trains?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`);
+                if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.msg || 'Failed to fetch trains');
+                }
+                const trains = await response.json();
+
+                if (trains.length === 0) {
+                resultsDiv.innerHTML = '<p>No trains found.</p>';
+                return;
+                }
+
+                let html = '<h4>Available Trains:</h4><ul class="list-group">';
+                trains.forEach(train => {
+                html += `<li class="list-group-item">
+                    <strong>${train.class}</strong> train from <em>${train.from}</em> to <em>${train.to}</em> on <strong>${train.date}</strong><br>
+                    Departure: ${train.departureTime}, Arrival: ${train.arrivalTime}<br>
+                    Price: ₹${train.price}
+                </li>`;
+                });
+                html += '</ul>';
+
+                resultsDiv.innerHTML = html;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<p class="text-danger">Error loading trains: ${error.message}</p>`;
+            }
+        });
+        // Hotel Search
+        document.getElementById('hotelSearchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const city = document.getElementById('hotelCityInput').value.trim();
+            const checkin = document.getElementById('hotelCheckinInput').value;
+            const checkout = document.getElementById('hotelCheckoutInput').value;
+
+            const resultsDiv = document.getElementById('hotelResults');
+            resultsDiv.innerHTML = 'Loading hotels...';
+
+            try {
+                const response = await fetch(`/api/hotels?city=${encodeURIComponent(city)}&checkin=${encodeURIComponent(checkin)}&checkout=${encodeURIComponent(checkout)}`);
+
+                if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.msg || 'Failed to fetch hotels');
+                }
+
+                const hotels = await response.json();
+
+                if (hotels.length === 0) {
+                resultsDiv.innerHTML = '<p>No hotels found.</p>';
+                return;
+                }
+
+                let html = '<h4>Available Hotels:</h4><ul class="list-group">';
+                hotels.forEach(hotel => {
+                html += `<li class="list-group-item">
+                    <strong>${hotel.name}</strong> in <em>${hotel.city}</em><br>
+                    Rating: ${hotel.rating} ⭐<br>
+                    Price per night: ₹${hotel.pricePerNight}
+                </li>`;
+                });
+                html += '</ul>';
+
+                resultsDiv.innerHTML = html;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<p class="text-danger">Error loading hotels: ${error.message}</p>`;
+            }
+        });
+
+
+
+    </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

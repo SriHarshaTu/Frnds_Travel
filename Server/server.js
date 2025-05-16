@@ -26,6 +26,10 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/tours', require('./routes/tours'));
 app.use('/api/payments', require('./routes/payments'));
 app.use('/api', require('./routes/bookings')); // ✅ Bookings route added
+app.use('/api/flights', require('./routes/flights'));
+app.use('/api/buses', require('./routes/buses'));
+app.use('/api/trains', require('./routes/trains'));
+app.use('/api/hotels', require('./routes/hotels'));
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

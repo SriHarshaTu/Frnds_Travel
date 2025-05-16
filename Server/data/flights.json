@@ -1,0 +1,23 @@
+[
+  {
+    "id": "FL001",
+    "from": "Mumbai",
+    "to": "Delhi",
+    "date": "2025-05-16",
+    "departureTime": "10:00",
+    "arrivalTime": "12:00",
+    "airline": "IndiGo",
+    "price": 5000
+  },
+  {
+    "id": "FL002",
+    "from": "Delhi",
+    "to": "Mumbai",
+    "date": "2025-05-16",
+    "departureTime": "15:00",
+    "arrivalTime": "17:00",
+    "airline": "Air India",
+    "price": 5500
+  }
+]
+

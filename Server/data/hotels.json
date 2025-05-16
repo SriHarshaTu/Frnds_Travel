@@ -1,0 +1,26 @@
+[
+  {
+    "id": "HOTEL001",
+    "city": "Mumbai",
+    "name": "Sea View Resort",
+    "rating": 4.5,
+    "pricePerNight": 3500,
+    "availabilityDates": ["2025-05-16", "2025-05-17", "2025-05-18"]
+  },
+  {
+    "id": "HOTEL002",
+    "city": "Pune",
+    "name": "Mountain Inn",
+    "rating": 4.0,
+    "pricePerNight": 2500,
+    "availabilityDates": ["2025-05-16", "2025-05-17", "2025-05-19"]
+  },
+  {
+    "id": "HOTEL003",
+    "city": "Mumbai",
+    "name": "City Center Hotel",
+    "rating": 3.8,
+    "pricePerNight": 2000,
+    "availabilityDates": ["2025-05-17", "2025-05-18", "2025-05-19"]
+  }
+]
