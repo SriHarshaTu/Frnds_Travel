@@ -48,5 +48,7 @@ Admin dashboard for managing tours
 
 ## 🧑‍💻 Author
 Sri Harsha Tuttaganti
+
 🎓 Master’s in Data Science & Analytics
-🌍 Passionate about building real-world data-driven apps
+
+🌍 Passionate about building real-world data-driven websites
