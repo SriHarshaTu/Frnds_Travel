@@ -148,11 +148,40 @@
         let map;
         let userMarker;
         const nearbyPlaces = [
-            { name: "City Museum", lat: 0, lng: 0, type: "museum", desc: "Local history and artifacts" },
-            { name: "Central Park", lat: 0, lng: 0, type: "park", desc: "Beautiful green space in city center" },
-            { name: "Heritage Temple", lat: 0, lng: 0, type: "religious", desc: "Ancient temple with stunning architecture" },
-            { name: "Shopping Mall", lat: 0, lng: 0, type: "shopping", desc: "Largest mall in the region" }
+            {
+                name: "City Museum",
+                lat: 0,
+                lng: 0,
+                type: "museum",
+                desc: "Local history and artifacts",
+                img: "https://wallpapers.com/images/hd/chennai-egmore-museum-qxx3nhjcvl5nckgw.jpg"
+            },
+            {
+                name: "Central Park",
+                lat: 0,
+                lng: 0,
+                type: "park",
+                desc: "Beautiful green space in city center",
+                img: "https://wallpapercave.com/wp/57DqHCQ.jpg"
+            },
+            {
+                name: "Heritage Temple",
+                lat: 0,
+                lng: 0,
+                type: "religious",
+                desc: "Ancient temple with stunning architecture",
+                img: "https://wallpaperaccess.com/full/504997.jpg"
+            },
+            {
+                name: "Shopping Mall",
+                lat: 0,
+                lng: 0,
+                type: "shopping",
+                desc: "Largest mall in the region",
+                img: "https://th.bing.com/th/id/OIP.oZdVR8wtQd9DV9wK769e-wHaEo?r=0&rs=1&pid=ImgDetMain&cb=idpwebpc2"
+            }
         ];
+
 
         // Icons for different place types
         const placeIcons = {
@@ -235,6 +264,7 @@
                 const card = `
                     <div class="col-md-3">
                         <div class="place-card card">
+                            <img src="${place.img}" class="card-img-top" alt="${place.name}" style="height: 180px; object-fit: cover;">
                             <div class="card-body">
                                 <h5 class="card-title">${place.name}</h5>
                                 <p class="card-text">${place.desc}</p>
